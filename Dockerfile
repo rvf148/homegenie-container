@@ -3,6 +3,8 @@ FROM phusion/baseimage
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
 
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+
 RUN apt-get update && apt-get install -y gdebi-core usbutils ca-certificates-mono && apt-get clean -y
 
 ADD homegenie-beta_1.1.r514_all.deb /tmp/
