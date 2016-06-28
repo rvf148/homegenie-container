@@ -9,9 +9,9 @@ RUN echo "deb http://download.mono-project.com/repo/debian wheezy main" | sudo t
 
 RUN apt-get update && apt-get install -y gdebi-core usbutils ca-certificates-mono && apt-get clean -y
 
-ADD homegenie-beta_1.1.r514_all.deb /tmp/
+ADD homegenie-beta_1.1.r525_all.deb /tmp/
 
-RUN gdebi --non-interactive /tmp/homegenie-beta_1.1.r514_all.deb
+RUN gdebi --non-interactive /tmp/homegenie-beta_1.1.r525_all.deb
                                  
 RUN mkdir /etc/service/homegenie
 
