@@ -1,4 +1,4 @@
-FROM phusion/baseimage
+FROM alpine:3.3
 
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
