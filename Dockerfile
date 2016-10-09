@@ -1,8 +1,7 @@
 FROM alpine:3.4
 
-RUN apt-get update
-RUN apt-get install -y gdebi-core libusb-1.0-0 libusb-1.0-0-dev alsa-utils mono-runtime libmono-corlib2.0-cil libmono-system-web4.0-cil libmono-system-numerics4.0-cil libmono-system-serviceprocess4.0-cil libmono-system-data4.0-cil libmono-system-core4.0-cil libmono-system-servicemodel4.0a-cil libmono-windowsbase4.0-cil libmono-system-runtime-serialization-formatters-soap4.0-cil libmono-system-runtime-serialization4.0-cil libmono-system-xml-linq4.0-cil mono-dmcs ca-certificates-mono lame lirc libv4l-0
-RUN apt-get clean -y
+RUN apk update
+RUN apk add --no-cache gdebi-core libusb-1.0-0 libusb-1.0-0-dev alsa-utils mono-runtime libmono-corlib2.0-cil libmono-system-web4.0-cil libmono-system-numerics4.0-cil libmono-system-serviceprocess4.0-cil libmono-system-data4.0-cil libmono-system-core4.0-cil libmono-system-servicemodel4.0a-cil libmono-windowsbase4.0-cil libmono-system-runtime-serialization-formatters-soap4.0-cil libmono-system-runtime-serialization4.0-cil libmono-system-xml-linq4.0-cil mono-dmcs ca-certificates-mono lame lirc libv4l-0
 
 ADD https://github.com/genielabs/HomeGenie/releases/download/v1.1-beta.525/homegenie-beta_1.1.r525_all.deb /tmp/
 
