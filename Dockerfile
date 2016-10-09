@@ -1,7 +1,7 @@
 FROM alpine:3.4
 
 # Use baseimage-docker's init system.
-#CMD ["/sbin/my_init"]
+CMD ["/sbin/my_init"]
 
 #Add key 
 #RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
@@ -27,5 +27,3 @@ RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 #Add Volume
 VOLUME /usr/local/bin/homegenie
 RUN chmod -R 777 /usr/local/bin/homegenie
-
-EXPOSE 80
