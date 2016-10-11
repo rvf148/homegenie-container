@@ -35,19 +35,20 @@ ADD https://github.com/genielabs/HomeGenie/releases/download/v1.1-beta.525/homeg
 
 RUN gdebi --non-interactive /tmp/homegenie-beta_1.1.r525_all.deb
                                  
-RUN mkdir /etc/service/homegenie
+#RUN mkdir -p /etc/service/homegenie
 
-ADD homegenie.runit /etc/service/homegenie/run
+#ADD homegenie.runit /etc/service/homegenie/run
 
-RUN chmod +x /etc/service/homegenie/run
+#RUN chmod +x /etc/service/homegenie/run
 
 # cleanup
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 #Add Volume
 VOLUME /usr/local/bin/homegenie
+
 RUN chmod -R 777 /usr/local/bin/homegenie
 
-CMD ["/homegenie/startup.sh"]
+CMD ["/usr/bin/mono /usr/local/bin/homegenie/HomeGenie.exe"]
 
 EXPOSE 80
