@@ -1,8 +1,11 @@
-FROM phusion/baseimage
+#FROM phusion/baseimage
+FROM ubuntu:16.04
 MAINTAINER Raf Van Hoof <raf.vanhoof@gmail.com>
 
 # Use baseimage-docker's init system.
-CMD ["/sbin/my_init"]
+#CMD ["/sbin/my_init"]
+
+
 
 RUN apt-get update && apt-get install -y \
 	gdebi-core \
@@ -44,5 +47,7 @@ RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 #Add Volume
 VOLUME /usr/local/bin/homegenie
 RUN chmod -R 777 /usr/local/bin/homegenie
+
+CMD ["/homegenie/startup.sh"]
 
 EXPOSE 80
