@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
 	gdebi-core \
 	libusb-1.0-0 \
 	libusb-1.0-0-dev \
+	usbutils \
 	alsa-utils \
 	mono-runtime \
     mono-reference-assemblies-4.0 \
