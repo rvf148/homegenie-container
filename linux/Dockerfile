@@ -58,4 +58,4 @@ RUN chmod -R 777 /usr/local/bin/homegenie
 
 CMD ["/usr/bin/mono /usr/local/bin/homegenie/HomeGenie.exe"]
 
-EXPOSE 80, 22
+EXPOSE 80 22
