@@ -1,9 +1,9 @@
-#FROM phusion/baseimage
-FROM ubuntu:16.04
+FROM phusion/baseimage
+#FROM ubuntu:16.04
 MAINTAINER Raf Van Hoof <raf.vanhoof@gmail.com>
 
 # Use baseimage-docker's init system.
-#CMD ["/sbin/my_init"]
+CMD ["/sbin/my_init"]
 
 
 
