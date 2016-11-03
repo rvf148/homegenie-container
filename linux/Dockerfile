@@ -13,6 +13,8 @@ RUN rm -f /etc/service/sshd/down
 # init system will auto-generate one during boot.
 RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 
+#enable insecure key permanent
+RUN /usr/sbin/enable_insecure_key
 
 RUN apt-get update && apt-get install -y \
 	gdebi-core \
