@@ -1,63 +1,42 @@
-FROM phusion/baseimage
-#FROM ubuntu:16.04
+FROM mono:latest
 MAINTAINER Raf Van Hoof <raf.vanhoof@gmail.com>
 
-# Use baseimage-docker's init system.
-CMD ["/sbin/my_init"]
-
-#enable SSH
-RUN rm -f /etc/service/sshd/down
-
-# Regenerate SSH host keys. baseimage-docker does not contain any, so you
-# have to do that yourself. You may also comment out this instruction; the
-# init system will auto-generate one during boot.
-RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
-
-#enable insecure key permanent
-RUN /usr/sbin/enable_insecure_key
-
 RUN apt-get update && apt-get install -y \
+	sudo \
 	gdebi-core \
 	libusb-1.0-0 \
 	libusb-1.0-0-dev \
 	usbutils \
 	alsa-utils \
-	mono-runtime \
-    mono-reference-assemblies-4.0 \
-	libmono-system-web4.0-cil \
-	libmono-system-numerics4.0-cil \
-	libmono-system-serviceprocess4.0-cil \
-	libmono-system-data4.0-cil \
-	libmono-system-core4.0-cil \
-	libmono-system-servicemodel4.0a-cil \
-	libmono-windowsbase4.0-cil \
-	libmono-system-runtime-serialization-formatters-soap4.0-cil \
-	libmono-system-runtime-serialization4.0-cil \
-	libmono-system-xml-linq4.0-cil \
-	mono-dmcs \
-	ca-certificates-mono \
 	lame \
 	lirc --no-install-recommends \
-	libv4l-0
+	libv4l-0 \
+	apt-utils \
+	mc
 
+#Install SSH deamon 
+ENV NOTVISIBLE "in users profile"
+RUN apt-get install -y openssh-server \
+ && mkdir /var/run/sshd \
+ && echo 'root:Okidoki%148' | chpasswd \
+ && sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
+ && sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd \
+ && echo "export VISIBLE=now" >> /etc/profile
+	
+#Add HomeGenie
 ADD https://github.com/genielabs/HomeGenie/releases/download/v1.1-beta.525/homegenie-beta_1.1.r525_all.deb /tmp/
-
 RUN gdebi --non-interactive /tmp/homegenie-beta_1.1.r525_all.deb
-                                 
-#RUN mkdir -p /etc/service/homegenie
-
-#ADD homegenie.runit /etc/service/homegenie/run
-
-#RUN chmod +x /etc/service/homegenie/run
 
 # cleanup
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-#Add Volume
-VOLUME /usr/local/bin/homegenie
-
 RUN chmod -R 777 /usr/local/bin/homegenie
 
-CMD ["/usr/bin/mono /usr/local/bin/homegenie/HomeGenie.exe"]
+ADD run.sh /usr/local/bin/run.sh
+RUN chmod +x /usr/local/bin/run.sh
+CMD ["/usr/local/bin/run.sh"]
+
+#CMD ["/usr/bin/mono" , "/usr/local/bin/homegenie/HomeGenie.exe"]
+#ENTRYPOINT ["/bin/bash"]
 
 EXPOSE 80 22
