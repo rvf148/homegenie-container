@@ -14,6 +14,17 @@ RUN apt-get update && apt-get install -y \
 	apt-utils \
 	mc
 
+#Add ACM ports
+RUN mknod /dev/ttyACM0 c 166 0
+RUN mknod /dev/ttyACM1 c 166 1
+RUN mknod /dev/ttyACM2 c 166 2
+RUN mknod /dev/ttyACM3 c 166 3
+
+RUN chmod 777 /dev/ttyACM0
+RUN chmod 777 /dev/ttyACM1
+RUN chmod 777 /dev/ttyACM2
+RUN chmod 777 /dev/ttyACM3
+
 #Install SSH deamon 
 ENV NOTVISIBLE "in users profile"
 RUN apt-get install -y openssh-server \
