@@ -1,4 +1,4 @@
-FROM microsoft/windowsservercore
+FROM microsoft/nanoserver
 MAINTAINER Raf Van Hoof <raf.vanhoof@gmail.com>
 
 ENV HOMEGENIE_FOLDER v1.1-beta.525
