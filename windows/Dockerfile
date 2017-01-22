@@ -8,12 +8,12 @@ ENV HOMEGENIE_SETUP HomeGenie_1_1_beta_r525.exe
 SHELL ["powershell"]
 
 #download and install homegeie
-RUN Sleep 2 ; \
-	New-Item C:\Install -type directory; \
-	New-Item C:\HomeGenie -type directory; \
-    wget -Uri https://github.com/genielabs/HomeGenie/releases/download/$env:HOMEGENIE_FOLDER/$env:HOMEGENIE_SETUP -OutFile C:\Install\$env:HOMEGENIE_SETUP; \
-	Start-Process C:\install\$env:HOMEGENIE_SETUP -ArgumentList '/VERYSILENT /LANG=Englisch /DIR=C:\HomeGenie /NOICONS /SUPPRESSMSGBOXES /CLOSEAPPLICATIONS' -Wait; \
-	Remove-Item c:\install\* -recurse
+RUN powershell Sleep 2 ; \
+    powershell New-Item C:\Install -type directory; \
+    powershell New-Item C:\HomeGenie -type directory; \
+    powershell wget -Uri https://github.com/genielabs/HomeGenie/releases/download/$env:HOMEGENIE_FOLDER/$env:HOMEGENIE_SETUP -OutFile C:\Install\$env:HOMEGENIE_SETUP; \
+    powershell Start-Process C:\install\$env:HOMEGENIE_SETUP -ArgumentList '/VERYSILENT /LANG=Englisch /DIR=C:\HomeGenie /NOICONS /SUPPRESSMSGBOXES /CLOSEAPPLICATIONS' -Wait; \
+    powershell Remove-Item c:\install\* -recurse;
      
 #Run homegenie
 EXPOSE 80
